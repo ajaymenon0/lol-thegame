@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+
+			var steps = ["\\o\\","lol","\/o\/","\\ol","\_o\_","lo\/"];
+
+			var random_array = [];
+
+			var item = steps[Math.floor(Math.random()*steps.length)];
+			$('.steproll').html(item);
+
+			var score = 0;
+			$('.totscore').html(score);
+
+			var totalw = $('.footer').width();
+			var i = 0;
+
+			/*while(i<totalw){
+				i += 20;
+				setTimeout(function(){
+					$('.steproll').animate({right: i}, 250);
+				},500);
+			}*/
+			function myLoop () {           
+			   setTimeout(function () {    
+			      i += 50; 
+			      $('.steproll').animate({right: i}, 250); 
+			      console.log(i);         
+			      if (i < totalw) {            
+			         myLoop();              
+			      }else {
+			      	console.log('Test');
+			      	$('#gameover').show();
+			      	//$('.steproll').html('Your life now has meaning!');
+			      }                    
+			   }, 500)
+			}
+
+			myLoop(); 
+
+			function randomize(steps){
+				item = steps[Math.floor(Math.random()*steps.length)];
+				//console.log('new item: '+item);
+				score += 10;
+				$('.totscore').html(score);
+				$('.steproll').html(item);
+			}
+
+			function match(s1,s2){
+				if(s1 == s2){
+					randomize(steps);
+					//return '1';
+				}
+				else
+					return '0';
+			}
+			/*setInterval(function(){
+				var item = steps[Math.floor(Math.random()*steps.length)];
+
+				random_array.push(item);
+
+				console.log(random_array);
+	
+			},1000);*/
+
+			
+			$('.topleft').hover(function(){
+				var loltype = '\\o\\';
+				match(item,loltype);
+				$('.lol').html(loltype);
+			});
+
+			$('.top').hover(function(){
+				var loltype = 'lol';
+				match(item,loltype);
+				$('.lol').html(loltype);
+			});
+
+			$('.topright').hover(function(){
+				var loltype = '\/o\/';
+				match(item,loltype);
+				$('.lol').html(loltype);
+			});
+
+			$('.bottomleft').hover(function(){
+				var loltype = '\\ol';
+				match(item,loltype);
+				$('.lol').html(loltype);
+			});
+
+			$('.bottom').hover(function(){
+				var loltype = '\_o\_';
+				match(item,loltype);
+				$('.lol').html(loltype);
+			});
+
+			$('.bottomright').hover(function(){
+				var loltype = 'lo\/';
+				match(item,loltype);
+				$('.lol').html(loltype);
+			});
+		});
+	</script>
+	<style type="text/css">
+		* {margin: 0; padding: 0;}
+		html, body {position: fixed; width: 100%; height: 100%; font-family: helvetica;}
+		#gameover {display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #eeeeee; text-align: center; z-index: 10;}
+		#gameover p{position: relative; top: 45%; color: #333333; font-size: 20px;}
+		.topleft {position: absolute; top: 0; left: 0; width: 45%; height: 50%;}
+		.top {position: absolute; top: 0; left: 45%; width: 10%; height: 50%;}
+		.topright {position: absolute; top: 0; left: 55%; width: 45%; height: 50%;}
+		.scorecard {position: absolute; top: 0; right: 0; font-size: 16px; color: #555555;}
+		.totscore {display: block; right: 0;}
+		.bottomleft {position: absolute; top: 50%; left: 0; width: 45%; height: 50%;}
+		.bottom {position: absolute; top: 50%; left: 45%; width: 10%; height: 50%;}
+		.bottomright {position: absolute; top: 50%; left: 55%; width: 45%; height: 50%;}
+		.lol {position: absolute; bottom: -30px; font-size: 60px; width: 100%; text-align: center; color: #444444; z-index: 2;}
+		.footer {position: fixed; bottom: 0; width: 100%; height: 50px; z-index: 5; background-color: #333333; color: #ffffff;}
+		.steproll {position: absolute; right: 10px; font-size: 20px; padding: 15px 0px;}
+	</style>
+</head>
+<body>
+	<div id="gameover"><p>Your life now has meaning!</p></div>
+	<div class="topleft"></div>
+	<div class="top"><div class="lol">lol</div></div>
+	<div class="topright">
+		<div class="scorecard">SCORE <div class="totscore"></div></div>
+	</div>
+	<div class="bottomleft"></div>
+	<div class="bottom"></div>
+	<div class="bottomright"></div>
+	<div class="footer">
+		<div class="steproll"></div>
+	</div>
+</body>
+</html>
